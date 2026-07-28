@@ -50,3 +50,66 @@ A automação de monitoramento de preços (Price Intelligence) traz vantagens co
 ├── grafico_comparativo_valores.png    # Gráfico com comparação direta de preços
 ├── grafico_variacao_percentual.png    # Gráfico destacando oscilações percentuais
 └── grafico_cotacao_auditavel.png      # Visualização consolidada para relatórios
+
+
+O repositório **[Projeto-1-Cota-o-em-tempo-real-de-produtos-da-Leroy-Merlin](https://github.com/Daniel010203/Projeto-1-Cota-o-em-tempo-real-de-produtos-da-Leroy-Merlin.git)** foi construído para realizar a **automação de coleta, comparação e análise visual de preços de produtos** no e-commerce da Leroy Merlin.
+
+Abaixo está a explicação detalhada do funcionamento dos componentes e do fluxo do código:
+
+---
+
+## ⚙️ Arquitetura e Fluxo do Código
+
+O projeto combina scripts de extração de dados com scripts de análise temporal e plotagem gráfica:
+
+```text
+  1. Consulta / Coleta            2. Processamento & Cruzamento           3. Análise Visual
+  ┌──────────────────────┐        ┌───────────────────────────┐         ┌───────────────────────┐
+  │ ConsultaValores.py   │ ─────> │ ComparacaoPreços.py       │ ──────> │ Plotagem de Gráficos  │
+  └──────────────────────┘        └───────────────────────────┘         └───────────────────────┘
+             │                                  │                                   │
+             ▼                                  ▼                                   ▼
+  (Coleta cotações atuais)       (Calcula variação % entre     (Gera relatórios em imagem)
+                                  datas: ex. 20 vs 25 de Julho)
+
+```
+
+---
+
+## 🔍 Detalhamento dos Arquivos e Scripts
+
+### 1. Coleta de Preços (`ConsultaValores.py`)
+
+* **O que faz:** Realiza a busca/extração das cotações atualizadas dos produtos diretamente da fonte.
+* **Como funciona:** Coleta os nomes e valores dos produtos e organiza esses registros em uma tabela estruturada.
+
+### 2. Comparação Temporal (`ComparacaoPreços.py`)
+
+* **O que faz:** Cruza bases de cotações obtidas em datas distintas (por exemplo, os arquivos `cotacao_leroy_20_vs_25_julho.csv` e `cotacao_leroy_auditavel.csv`).
+* **Como funciona:**
+* Utliza `pandas` para ler e mesclar (*merge/join*) as bases por produto.
+* Calcula a variação bruta (diferença em R$) e a variação percentual (%) no preço de cada item entre as duas datas.
+
+
+
+### 3. Visualização de Dados e Relatórios (`codigo.py`, `codigo2.py`, etc.)
+
+* **O que faz:** Transforma os dados comparativos em gráficos analíticos prontos para relatórios comerciais.
+* **Como funciona:**
+* Utiliza `matplotlib` e `seaborn` para gerar gráficos que destacam:
+1. **Preço do produto em datas distintas** (`grafico_comparativo_valores.png`).
+2. **Oscilações de alta e queda percentual** (`grafico_variacao_percentual.png`).
+3. **Visão consolidada auditável** (`grafico_cotacao_auditavel.png`).
+
+
+
+
+
+---
+
+## 🛠️ Tecnologias Envolvidas
+
+* **`pandas`:** Manipulação das tabelas de cotação, cruzamento de dados temporais e cálculo de variações de preços.
+* **`numpy`:** Suporte a cálculos matemáticos/estatísticos de variação.
+* **`matplotlib` e `seaborn`:** Construção, estilização e exportação dos gráficos comparativos em formato PNG.
+
